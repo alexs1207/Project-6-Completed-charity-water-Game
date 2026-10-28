@@ -1,0 +1,354 @@
+/* =========================================
+   CHARITY: WATER — WATER DROP CHALLENGE
+   Brand colors: Yellow and Blue
+   ========================================= */
+
+/* 1. Global styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --yellow: #FFC907;
+    --blue: #2E9DF7;
+    --light-blue: #8BD1CB;
+    --green: #159A48;
+    --red: #F5402C;
+    --dark: #222222;
+    --white: #FFFFFF;
+    --background: #F4FBFF;
+}
+
+body {
+    min-height: 100vh;
+    padding: 24px 16px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background: var(--background);
+    color: var(--dark);
+    font-family: "Avenir", "Proxima Nova", Arial, sans-serif;
+}
+
+/* 2. Main layout */
+.game-wrapper {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+}
+
+/* 3. Header and branding */
+.game-header {
+    width: 100%;
+    text-align: center;
+}
+
+.brand-name {
+    display: inline-block;
+    margin-bottom: 12px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    background: var(--yellow);
+    color: var(--dark);
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.game-title {
+    margin-bottom: 8px;
+    color: var(--dark);
+    font-size: clamp(30px, 5vw, 48px);
+    font-weight: 800;
+    line-height: 1.15;
+}
+
+.game-tagline {
+    max-width: 600px;
+    margin: 0 auto;
+    color: #4C5964;
+    font-size: 17px;
+    line-height: 1.6;
+}
+
+/* 4. Score, timer, and buttons */
+.score-panel {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 16px 20px;
+    background: var(--white);
+    border: 2px solid #DCECF5;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(26, 83, 120, 0.08);
+}
+
+.score,
+.timer {
+    font-size: 21px;
+    font-weight: 800;
+}
+
+#score {
+    color: var(--green);
+}
+
+#time {
+    color: #146BB5;
+}
+
+button {
+    font-family: inherit;
+}
+
+#start-btn,
+#reset-btn {
+    min-height: 44px;
+    padding: 11px 18px;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+#start-btn {
+    background: var(--yellow);
+    color: var(--dark);
+}
+
+#start-btn:hover:not(:disabled) {
+    background: #F0B900;
+    transform: translateY(-2px);
+}
+
+#reset-btn {
+    background: var(--blue);
+    color: var(--white);
+}
+
+#reset-btn:hover {
+    background: #167CC8;
+    transform: translateY(-2px);
+}
+
+button:focus-visible,
+.water-drop:focus-visible {
+    outline: 3px solid var(--dark);
+    outline-offset: 4px;
+}
+
+#start-btn:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+/* 5. Instructions and game messages */
+.game-instructions {
+    width: 100%;
+    padding: 12px 16px;
+    border-left: 5px solid var(--yellow);
+    border-radius: 5px;
+    background: #FFF8D9;
+    font-size: 15px;
+    line-height: 1.6;
+    text-align: center;
+}
+
+.game-message {
+    width: 100%;
+    min-height: 28px;
+    color: #155C85;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.5;
+    text-align: center;
+}
+
+/* 6. Game area */
+#game-container {
+    position: relative;
+    width: 100%;
+    height: 520px;
+    overflow: hidden;
+    isolation: isolate;
+    border: 3px solid #B7E5F7;
+    border-radius: 14px;
+    background:
+        radial-gradient(circle at 15% 18%, rgba(255,255,255,.85) 0 3px, transparent 4px),
+        radial-gradient(circle at 80% 35%, rgba(255,255,255,.8) 0 4px, transparent 5px),
+        linear-gradient(180deg, #DDF5FF 0%, #B8E8FC 70%, #8BD1CB 100%);
+    box-shadow: 0 8px 20px rgba(26, 83, 120, 0.12);
+}
+
+/* 7. Falling water drops
+   JavaScript adds the .water-drop class. */
+.water-drop {
+    position: absolute;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    border: 3px solid rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    background: var(--blue);
+    color: var(--white);
+    font-size: 27px;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(20, 107, 181, 0.25);
+    animation: dropFall linear forwards;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.water-drop:hover {
+    filter: brightness(1.08);
+}
+
+.water-drop:active {
+    transform: scale(0.9);
+}
+
+/* Dirty-water obstacles */
+.dirty-drop,
+.bad-drop {
+    border-color: #FFFFFF;
+    background: var(--red);
+    color: var(--white);
+    box-shadow: 0 4px 10px rgba(180, 35, 25, 0.25);
+}
+
+/* Feedback after collecting a drop */
+.water-drop.collected {
+    background: var(--green);
+    animation: popAway 0.25s ease forwards;
+    pointer-events: none;
+}
+
+.water-drop.hit-feedback {
+    background: var(--red);
+    animation: popAway 0.25s ease forwards;
+    pointer-events: none;
+}
+
+@keyframes dropFall {
+    from {
+        transform: translateY(-70px);
+    }
+
+    to {
+        transform: translateY(600px);
+    }
+}
+
+@keyframes popAway {
+    to {
+        opacity: 0;
+        transform: scale(1.35);
+    }
+}
+
+/* 8. Confetti celebration */
+#confetti-container {
+    position: relative;
+    width: 100%;
+    height: 0;
+    pointer-events: none;
+}
+
+.confetti {
+    position: absolute;
+    top: -500px;
+    z-index: 5;
+    font-size: 18px;
+    animation: confettiFall 3s ease-in forwards;
+}
+
+@keyframes confettiFall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(520px) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* 9. Footer */
+.game-footer {
+    width: 100%;
+    padding: 12px 8px;
+    color: #52616B;
+    font-size: 13px;
+    line-height: 1.7;
+    text-align: center;
+}
+
+/* 10. Responsive design for phones and tablets */
+@media (max-width: 650px) {
+    body {
+        padding: 16px 10px;
+    }
+
+    .game-wrapper {
+        gap: 14px;
+    }
+
+    .score-panel {
+        justify-content: center;
+        gap: 12px;
+        padding: 14px 10px;
+    }
+
+    .score,
+    .timer {
+        font-size: 18px;
+    }
+
+    #start-btn,
+    #reset-btn {
+        flex: 1 1 120px;
+        padding: 11px 10px;
+    }
+
+    #game-container {
+        height: 60vh;
+        min-height: 350px;
+        max-height: 520px;
+    }
+
+    .game-tagline {
+        font-size: 15px;
+    }
+
+    .game-instructions {
+        font-size: 14px;
+    }
+
+    .water-drop {
+        font-size: 23px;
+    }
+}
+
+/* Respect users who prefer less animation */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}

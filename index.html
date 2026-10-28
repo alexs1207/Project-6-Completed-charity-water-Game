@@ -1,0 +1,59 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Play the Water Drop Game and learn why every drop counts.">
+    <title>Water Drop Game | charity: water</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main class="game-wrapper">
+        <header class="game-header">
+            <p class="brand-name">charity: water</p>
+            <h1 class="game-title">Water Drop Challenge</h1>
+            <p class="game-tagline">
+                Catch clean water drops and avoid dirty water!
+                Every drop counts.
+            </p>
+        </header>
+
+        <section class="score-panel" aria-label="Game information">
+            <div class="score">
+                Score: <span id="score" aria-live="polite">0</span>
+            </div>
+
+            <div class="timer">
+                Time: <span id="time" aria-live="off">30</span>s
+            </div>
+
+            <button id="start-btn" type="button">Start Game</button>
+            <button id="reset-btn" type="button">Reset Game</button>
+        </section>
+
+        <p class="game-instructions">
+            💧 Click blue drops for +1 point. Red drops cost you 1 point!
+            Reach 20 points in 30 seconds to win.
+        </p>
+
+        <p id="message" class="game-message" role="status" aria-live="polite">
+            Ready to play? Press Start Game!
+        </p>
+
+        <section id="game-container" aria-label="Water drop game area">
+            <!-- Falling water drops are added here by JavaScript. -->
+        </section>
+
+        <div id="confetti-container" aria-hidden="true"></div>
+
+        <footer class="game-footer">
+            <p>Clean water changes everything.</p>
+            <p>Inspired by charity: water's mission to bring clean water to people in need.</p>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
+```
