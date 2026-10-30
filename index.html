@@ -1,17 +1,26 @@
-```html
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Play the Water Drop Game and learn why every drop counts.">
+    <meta name="theme-color" content="#ffc907">
     <title>Water Drop Game | charity: water</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
 </head>
+
 <body>
     <main class="game-wrapper">
+
         <header class="game-header">
-            <p class="brand-name">charity: water</p>
+            <p class="brand-name">charity: water 💧</p>
             <h1 class="game-title">Water Drop Challenge</h1>
             <p class="game-tagline">
                 Catch clean water drops and avoid dirty water!
@@ -19,22 +28,53 @@
             </p>
         </header>
 
+        <section class="difficulty-panel">
+            <h2>Choose Your Difficulty</h2>
+
+            <div class="difficulty-buttons">
+                <button class="difficulty-btn active" data-mode="easy" aria-pressed="true">
+                    Easy
+                </button>
+
+                <button class="difficulty-btn" data-mode="normal" aria-pressed="false">
+                    Normal
+                </button>
+
+                <button class="difficulty-btn" data-mode="hard" aria-pressed="false">
+                    Hard
+                </button>
+            </div>
+
+            <p id="difficulty-info">45 seconds | Goal: 15 points</p>
+        </section>
+
         <section class="score-panel" aria-label="Game information">
+
             <div class="score">
                 Score: <span id="score" aria-live="polite">0</span>
             </div>
 
             <div class="timer">
-                Time: <span id="time" aria-live="off">30</span>s
+                Time: <span id="time" aria-live="off">45</span>s
+            </div>
+
+            <div class="goal">
+                Goal: <span id="goal">15</span>
             </div>
 
             <button id="start-btn" type="button">Start Game</button>
+
             <button id="reset-btn" type="button">Reset Game</button>
+
+            <button id="sound-btn" type="button" aria-pressed="false">
+                Sound: Off
+            </button>
+
         </section>
 
         <p class="game-instructions">
-            💧 Click blue drops for +1 point. Red drops cost you 1 point!
-            Reach 20 points in 30 seconds to win.
+            💧 Click blue drops for +1 point.
+            🟤 Avoid dirty water drops or lose 1 point!
         </p>
 
         <p id="message" class="game-message" role="status" aria-live="polite">
@@ -45,15 +85,44 @@
             <!-- Falling water drops are added here by JavaScript. -->
         </section>
 
+        <p id="milestone-message" class="milestone-message" role="status" aria-live="polite"></p>
+
         <div id="confetti-container" aria-hidden="true"></div>
 
-        <footer class="game-footer">
-            <p>Clean water changes everything.</p>
-            <p>Inspired by charity: water's mission to bring clean water to people in need.</p>
-        </footer>
-    </main>
+        <section class="mission-section">
+            <h2>Why Clean Water Matters</h2>
 
-    <script src="script.js"></script>
+            <p>
+                Clean water changes everything. Millions of people around
+                the world still lack access to safe drinking water.
+                Every drop makes a difference!
+            </p>
+
+            <a href="https://www.charitywater.org/"
+               target="_blank" rel="noopener noreferrer">
+                Learn About charity: water
+            </a>
+
+            <a href="https://www.charitywater.org/donate"
+               target="_blank" rel="noopener noreferrer">
+                Support Clean Water
+            </a>
+        </section>
+
+        <footer class="game-footer">
+            <p>Made with 💛 for clean water.</p>
+
+            <p>
+                Inspired by charity: water's mission to bring clean water
+                to people in need.
+            </p>
+
+            <a href="https://www.charitywater.org/"
+               target="_blank" rel="noopener noreferrer">
+                charity: water Website
+            </a>
+        </footer>
+
+    </main>
 </body>
 </html>
-```
